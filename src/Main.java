@@ -14,7 +14,7 @@ public class Main {
     private static void manipulateSong(String response, Clip clip) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         Scanner scanner = new Scanner(System.in);
         boolean validSongChoice = false;
-        while (!response.equals("Q") || !response.equals("C")) {
+        while (!response.equals("Q")) {
             System.out.println("What would you like to do?\nS - stop\nP - play\nR - reset\nQ - quit\nC - choose other song");
             response = scanner.next();
             response = response.toUpperCase();
@@ -34,6 +34,7 @@ public class Main {
                     break;
                 case ("Q"):
                     System.out.println("Thanks for listening!");
+                    break;
                 default:
                     System.out.println("Please choose a valid option");
             }
