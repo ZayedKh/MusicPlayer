@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
         Scanner scanner = new Scanner(System.in);
+        String response;
 
         File file = new File("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\instant_crush.wav");
 
@@ -14,7 +15,14 @@ public class Main {
         Clip clip = AudioSystem.getClip();
         clip.open(audioInputStream);
 
+        clip.start();
+
+        System.out.println("Stalling for the program to run");
+        response = scanner.next();
         
+
+
+
 
     }
 }
