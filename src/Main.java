@@ -19,7 +19,7 @@ public class Main {
 
         System.out.println("Stalling for the program to run");
         response = scanner.next();
-        
+
 
 
 
