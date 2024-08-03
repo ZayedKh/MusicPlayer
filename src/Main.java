@@ -27,6 +27,7 @@ public class Main {
                     break;
                 case("R"):
                     clip.setMicrosecondPosition(0);
+                    break;
                 case ("C"):
                     clip.stop();
                     chooseSong(validSongChoice);
