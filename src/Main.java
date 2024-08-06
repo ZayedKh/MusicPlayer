@@ -34,6 +34,7 @@ public class Main {
                     chooseSong(validSongChoice);
                     break;
                 case ("Q"):
+                    clip.stop();
                     System.out.println("Thanks for listening!");
                     break;
                 default:

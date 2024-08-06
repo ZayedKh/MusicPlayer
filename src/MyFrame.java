@@ -10,11 +10,11 @@ public class MyFrame extends JFrame {
         this.getContentPane().setBackground(new Color(150, 110, 200));
         this.setResizable(false);
         this.setSize(500,500);
+        this.setLayout(null);
         this.setVisible(true);
         this.add(new MyLabel("Choose your song!"));
         ImageIcon headphoneImage = new ImageIcon("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\headphones.png");
         this.setIconImage(headphoneImage.getImage());
-
     }
 
 }
