@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         boolean validSongChoice = false;
+        MyFrame myFrame = new MyFrame();
 
         chooseSong(validSongChoice);
 
