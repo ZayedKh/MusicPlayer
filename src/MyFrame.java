@@ -10,6 +10,8 @@ import java.io.IOException;
 public class MyFrame extends JFrame implements ActionListener {
 
     JButton instantCrushButton;
+    JButton murderOnMyMindButton;
+    JButton flashingLightsButton;
 
     MyFrame() {
         instantCrushButton = new JButton();
@@ -21,6 +23,25 @@ public class MyFrame extends JFrame implements ActionListener {
         instantCrushButton.setBackground(Color.black);
         instantCrushButton.addActionListener(this);
 
+
+        murderOnMyMindButton = new JButton();
+        murderOnMyMindButton.setBounds(125, 225, 200, 50);
+        murderOnMyMindButton.setText("Murder on my mind - YMW Melly");
+        murderOnMyMindButton.setFocusable(false);
+        murderOnMyMindButton.setFont(new Font("Comic Sans", Font.BOLD, 10));
+        murderOnMyMindButton.setForeground(Color.white);
+        murderOnMyMindButton.setBackground(Color.black);
+        murderOnMyMindButton.addActionListener(this);
+
+        flashingLightsButton = new JButton();
+        flashingLightsButton.setBounds(125, 300, 200, 50);
+        flashingLightsButton.setText("Flashing lights - Kanye West");
+        flashingLightsButton.setFocusable(false);
+        flashingLightsButton.setFont(new Font("Comic Sans", Font.BOLD, 10));
+        flashingLightsButton.setForeground(Color.white);
+        flashingLightsButton.setBackground(Color.black);
+        flashingLightsButton.addActionListener(this);
+
         this.setTitle("Music player GUI");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(new Color(150, 110, 200));
@@ -29,6 +50,8 @@ public class MyFrame extends JFrame implements ActionListener {
         this.setLayout(null);
         this.setVisible(true);
         this.add(instantCrushButton);
+        this.add(murderOnMyMindButton);
+        this.add(flashingLightsButton);
         this.add(new MyLabel("Choose your song!"));
         ImageIcon headphoneImage = new ImageIcon("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\headphones.png");
         this.setIconImage(headphoneImage.getImage());
@@ -38,10 +61,33 @@ public class MyFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         boolean validSongChoice = false;
+        String songNumber;
         if (e.getSource() == instantCrushButton) {
-            String songNumber = "1";
+            songNumber = "1";
             try {
-                Main.chooseSong(validSongChoice,songNumber);
+                Main.chooseSong(validSongChoice, songNumber);
+            } catch (LineUnavailableException ex) {
+                throw new RuntimeException(ex);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (UnsupportedAudioFileException ex) {
+                throw new RuntimeException(ex);
+            }
+        } else if (e.getSource() == murderOnMyMindButton) {
+            songNumber = "2";
+            try {
+                Main.chooseSong(validSongChoice, songNumber);
+            } catch (LineUnavailableException ex) {
+                throw new RuntimeException(ex);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (UnsupportedAudioFileException ex) {
+                throw new RuntimeException(ex);
+            }
+        } else if (e.getSource() == flashingLightsButton) {
+            songNumber = "3";
+            try {
+                Main.chooseSong(validSongChoice, songNumber);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
