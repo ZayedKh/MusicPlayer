@@ -8,8 +8,8 @@ public class MyLabel extends JLabel {
         this.text = text;
         this.setText(text);
         this.setHorizontalTextPosition(JLabel.CENTER);
-//        Border border = BorderFactory.createLineBorder(Color.RED,3);
-//        this.setBorder(border);
-        this.setBounds(100,100,250,250);
+        this.setHorizontalAlignment(JLabel.CENTER);
+        this.setFont(new Font("MV Boli",Font.BOLD,25));
+        this.setBounds(100,-50,250,250);
     }
 }

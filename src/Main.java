@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
+    public static File[] songs = new File[3];
     public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         boolean validSongChoice = false;
         MyFrame myFrame = new MyFrame();
 
-        chooseSong(validSongChoice);
+//        chooseSong(validSongChoice);
+
 
     }
 
@@ -43,12 +45,9 @@ public class Main {
         }
     }
 
-    private static void chooseSong(boolean validSongChoice) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+    public static void chooseSong(boolean validSongChoice) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         Scanner scanner = new Scanner(System.in);
         String response = "";
-
-
-        File[] songs = new File[3];
 
         songs[0] = new File("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\instant_crush.wav");
         songs[1] = new File("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\murder_on_my_mind.wav");
@@ -88,5 +87,44 @@ public class Main {
             }
         }
         manipulateSong(response, chosenClip);
+    }
+
+    public static void chooseSong(boolean validSongChoice, String songNumber) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+
+        songs[0] = new File("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\instant_crush.wav");
+        songs[1] = new File("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\murder_on_my_mind.wav");
+        songs[2] = new File("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\flashing_lights.wav");
+
+        AudioInputStream[] audioInputStreams = new AudioInputStream[3];
+        Clip[] clips = new Clip[3];
+
+
+        for (int i = 0; i < 3; i++) {
+            audioInputStreams[i] = AudioSystem.getAudioInputStream(songs[i]);
+            clips[i] = AudioSystem.getClip();
+            clips[i].open(audioInputStreams[i]);
+        }
+        Clip chosenClip = null;
+
+        while(!validSongChoice){
+            switch(songNumber){
+                case("1"):
+                    chosenClip = clips[0];
+                    validSongChoice = true;
+                    break;
+                case("2"):
+                    chosenClip = clips[1];
+                    validSongChoice = true;
+                    break;
+                case("3"):
+                    chosenClip = clips[2];
+                    validSongChoice = true;
+                    break;
+                default:
+                    System.out.println("Please choose a valid song!");
+            }
+        }
+        manipulateSong(songNumber,chosenClip);
+
     }
 }
