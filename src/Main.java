@@ -8,47 +8,45 @@ public class Main {
     public static String[] songTitles = new String[]{"Instant Crush - Daft Punk", "Murder on my mind - YNW Melly", "Flashing lights - Kanye West"};
     public static String[] controlSong = new String[]{"Play", "Stop", "Reset", "Choose other song", "Quit"};
     public static boolean validSongChoice = false;
+    private static Clip chosenClip = null;
 
     public static void main(String[] args) {
         MyFrame songSelectorFrame = new MyFrame(3, songTitles);
-        MyFrame controlSongFrame = new MyFrame(4, controlSong);
-
-        controlSongFrame.setVisible(false);
-
-        if (!validSongChoice) {
-            closeFrame(controlSongFrame);
-        } else closeFrame(songSelectorFrame);
-
     }
 
-    private static void manipulateSong(String response, Clip clip) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        Scanner scanner = new Scanner(System.in);
-        while (!response.equals("Q")) {
-            System.out.println("What would you like to do?\nS - stop\nP - play\nR - reset\nQ - quit\nC - choose other song");
-            response = scanner.next();
+    public static void manipulateSong(String response) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+
+        if (Main.validSongChoice) {
+            MyFrame frame = new MyFrame(5, controlSong);
+
             response = response.toUpperCase();
             switch (response) {
                 case ("P"):
-                    clip.start();
+                    chosenClip.start();
+
                     break;
                 case ("S"):
-                    clip.stop();
+                    chosenClip.stop();
+
                     break;
                 case ("R"):
-                    clip.setMicrosecondPosition(0);
+                    chosenClip.setMicrosecondPosition(0);
                     break;
                 case ("C"):
-                    validSongChoice = false;
-                    clip.stop();
-                    chooseSong(validSongChoice);
+                    frame.setVisible(false);
+                    Main.validSongChoice = false;
+                    chosenClip.stop();
+                    MyFrame songSelectorFrame = new MyFrame(3, songTitles);
                     break;
                 case ("Q"):
-                    clip.stop();
+                    frame.setVisible(false);
+                    chosenClip.stop();
                     System.out.println("Thanks for listening!");
+                    Main.validSongChoice = false;
+                    System.exit(0);
                     break;
-                default:
-                    System.out.println("Please choose a valid option");
             }
+
         }
     }
 
@@ -78,28 +76,28 @@ public class Main {
             clips[i] = AudioSystem.getClip();
             clips[i].open(audioInputStreams[i]);
         }
-        Clip chosenClip = null; // Parameter to send to the manipulateSong method.
+        chosenClip = null; // Parameter to send to the manipulateSong method.
 
         // While loop to ensure the user selects a valid song
-        while (!validSongChoice) {
+        while (!Main.validSongChoice) {
             switch (songNumber) {
                 case ("1"):
                     chosenClip = clips[0]; // ChosenClip is set to the song chosen by the user
-                    validSongChoice = true; // Boolean set to true if valid song is selected
+                    Main.validSongChoice = true; // Boolean set to true if valid song is selected
                     break;
                 case ("2"):
                     chosenClip = clips[1];
-                    validSongChoice = true;
+                    Main.validSongChoice = true;
                     break;
                 case ("3"):
                     chosenClip = clips[2];
-                    validSongChoice = true;
+                    Main.validSongChoice = true;
                     break;
                 default:
                     System.out.println("Please choose a valid song!"); // Default option in case user doesn't select a valid option.
             }
         }
-        manipulateSong(songNumber, chosenClip); // Method call
+        manipulateSong(songNumber); // Method call
     }
 
 
@@ -120,8 +118,6 @@ public class Main {
             clips[i] = AudioSystem.getClip();
             clips[i].open(audioInputStreams[i]);
         }
-
-        Clip chosenClip = null;
 
         while (!validSongChoice) {
             System.out.println("""
@@ -149,7 +145,7 @@ public class Main {
                     System.out.println("Please choose a valid song");
             }
         }
-        manipulateSong(response, chosenClip);
+        manipulateSong(response);
     }
 
     public static void closeFrame(MyFrame frame) {
