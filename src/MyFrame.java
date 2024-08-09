@@ -8,23 +8,32 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class MyFrame extends JFrame implements ActionListener {
-    JButton [] songButtons = new JButton[3];
+    private JButton [] buttons; //Array of buttons
+    public boolean showMusicControls; //Boolean to control which frame is visible
+    private int numberOfButtons; //Int that decides the number of buttons to display
+    private String [] buttonTitles; //Array of strings that hold the text displayed on the buttons
 
-    MyFrame() {
-        String [] songTitles = new String[]{"Instant Crush - Daft Punk", "Murder on my mind - YMW Melly", "Flashing lights - Kanye West"};
 
+    MyFrame(int numberOfButtons, String [] buttonTitles) {
+        this.numberOfButtons = numberOfButtons;
 
-        for (int i = 0; i < 3;i++){
-            songButtons[i] = new JButton();
-            songButtons[i].setBounds(125, 150 + (i*75),200,50);
-            songButtons[i].setText(songTitles[i]);
-            songButtons[i].setFocusable(false);
-            songButtons[i].setFont(new Font("Comic Sans", Font.BOLD, 10));
-            songButtons[i].setForeground(Color.white);
-            songButtons[i].setBackground(Color.black);
-            songButtons[i].addActionListener(this);
+        buttonTitles = new String[numberOfButtons];
+        buttons = new JButton[numberOfButtons];
+
+        for (int i = 0; i < numberOfButtons;i++){ //Loop that configures the buttons and sets their paramenters
+            this.buttonTitles[i] = buttonTitles[i];
+
+            buttons[i] = new JButton();
+            buttons[i].setBounds(125, 150 + (i*75),200,50);
+            buttons[i].setText(buttonTitles[i]);
+            buttons[i].setFocusable(false);
+            buttons[i].setFont(new Font("Comic Sans", Font.BOLD, 10));
+            buttons[i].setForeground(Color.white);
+            buttons[i].setBackground(Color.black);
+            buttons[i].addActionListener(this);
         }
 
+        // Configure the frame and set it's parameters
         this.setTitle("Music player GUI");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(new Color(150, 110, 200));
@@ -32,22 +41,28 @@ public class MyFrame extends JFrame implements ActionListener {
         this.setSize(500, 500);
         this.setLayout(null);
         this.setVisible(true);
-        for (int i = 0; i < 3; i++){
-            this.add(songButtons[i]);
+
+        for (int i = 0; i < 3; i++){ // Loop that adds buttons to the frame
+            this.add(buttons[i]);
         }
+
         this.add(new MyLabel("Choose your song!"));
-        ImageIcon headphoneImage = new ImageIcon("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\headphones.png");
+
+        ImageIcon headphoneImage = new ImageIcon("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\headphones.png"); // Changes the GUI icon
         this.setIconImage(headphoneImage.getImage());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         boolean validSongChoice = false;
+        showMusicControls = false;
         String songNumber;
-        if (e.getSource() == songButtons[0]) {
+        if (e.getSource() == buttons[0]) {
             songNumber = "1";
             try {
                 Main.chooseSong(validSongChoice, songNumber);
+                showMusicControls = true;
+                this.setVisible(false);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -55,10 +70,12 @@ public class MyFrame extends JFrame implements ActionListener {
             } catch (UnsupportedAudioFileException ex) {
                 throw new RuntimeException(ex);
             }
-        } else if (e.getSource() == songButtons[1]) {
+        } else if (e.getSource() == buttons[1]) {
             songNumber = "2";
             try {
                 Main.chooseSong(validSongChoice, songNumber);
+                showMusicControls = true;
+                this.setVisible(false);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -66,10 +83,12 @@ public class MyFrame extends JFrame implements ActionListener {
             } catch (UnsupportedAudioFileException ex) {
                 throw new RuntimeException(ex);
             }
-        } else if (e.getSource() == songButtons[2]) {
+        } else if (e.getSource() == buttons[2]) {
             songNumber = "3";
             try {
                 Main.chooseSong(validSongChoice, songNumber);
+                showMusicControls = true;
+                this.setVisible(false);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {

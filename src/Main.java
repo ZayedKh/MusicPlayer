@@ -5,12 +5,13 @@ import java.util.Scanner;
 
 public class Main {
     public static File[] songs = new File[3];
+    public static String [] songTitles = new String[]{"Instant Crush - Daft Punk","Murder on my mind - YNW Melly","Flashing lights - Kanye West"};
+    public static String [] controlSong = new String[]{"Play", "Stop", "Reset", "Choose other song", "Quit"};
+
     public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+
         boolean validSongChoice = false;
-        MyFrame songSelector = new MyFrame();
-
-//        chooseSong(validSongChoice);
-
+        MyFrame songSelector = new MyFrame(3,songTitles);
 
     }
 
@@ -45,7 +46,57 @@ public class Main {
         }
     }
 
-    public static void chooseSong(boolean validSongChoice) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+        /*
+        This method takes in a boolean - validSongChoice, and a String - songNumber. This method holds the files used to play the songs.
+        A switch statement is used to control which song to play, based on the songNumber variable, each song corresponds to a number which is based on which option
+        the user chooses.
+
+        The while loop ensures that the user selects a valid song, once a song is selected the boolean is set to true and the while loop is broken.
+        After the while loop the manipulateSong method is called to control the song, using the chosenClip Clip as the paramenter.
+         */
+        public static void chooseSong(boolean validSongChoice, String songNumber) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+
+        // Files to hold songs are created
+
+        songs[0] = new File("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\instant_crush.wav");
+        songs[1] = new File("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\murder_on_my_mind.wav");
+        songs[2] = new File("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\flashing_lights.wav");
+
+        AudioInputStream[] audioInputStreams = new AudioInputStream[3];
+        Clip[] clips = new Clip[3];
+
+
+        for (int i = 0; i < 3; i++) {
+            audioInputStreams[i] = AudioSystem.getAudioInputStream(songs[i]);
+            clips[i] = AudioSystem.getClip();
+            clips[i].open(audioInputStreams[i]);
+        }
+        Clip chosenClip = null; // Parameter to send to the manipulateSong method.
+
+        // While loop to ensure the user selects a valid song
+        while(!validSongChoice){
+            switch(songNumber){
+                case("1"):
+                    chosenClip = clips[0]; // ChosenClip is set to the song chosen by the user
+                    validSongChoice = true; // Boolean set to true if valid song is selected
+                    break;
+                case("2"):
+                    chosenClip = clips[1];
+                    validSongChoice = true;
+                    break;
+                case("3"):
+                    chosenClip = clips[2];
+                    validSongChoice = true;
+                    break;
+                default:
+                    System.out.println("Please choose a valid song!"); // Default option in case user doesn't select a valid option.
+            }
+        }
+        manipulateSong(songNumber,chosenClip); // Method call
+    }
+
+
+        public static void chooseSong(boolean validSongChoice) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         Scanner scanner = new Scanner(System.in);
         String response = "";
 
@@ -62,7 +113,9 @@ public class Main {
             clips[i] = AudioSystem.getClip();
             clips[i].open(audioInputStreams[i]);
         }
+
         Clip chosenClip = null;
+
         while (!validSongChoice) {
             System.out.println("Which song would you like to play? (Select the number of the song you want to play)\n" +
                     "1) Instant Crush - Daft Punk\n2) Murder on my mind - YNW Melly\n3) Flashing lights - Kanye West");
@@ -89,42 +142,4 @@ public class Main {
         manipulateSong(response, chosenClip);
     }
 
-    public static void chooseSong(boolean validSongChoice, String songNumber) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-
-        songs[0] = new File("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\instant_crush.wav");
-        songs[1] = new File("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\murder_on_my_mind.wav");
-        songs[2] = new File("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\flashing_lights.wav");
-
-        AudioInputStream[] audioInputStreams = new AudioInputStream[3];
-        Clip[] clips = new Clip[3];
-
-
-        for (int i = 0; i < 3; i++) {
-            audioInputStreams[i] = AudioSystem.getAudioInputStream(songs[i]);
-            clips[i] = AudioSystem.getClip();
-            clips[i].open(audioInputStreams[i]);
-        }
-        Clip chosenClip = null;
-
-        while(!validSongChoice){
-            switch(songNumber){
-                case("1"):
-                    chosenClip = clips[0];
-                    validSongChoice = true;
-                    break;
-                case("2"):
-                    chosenClip = clips[1];
-                    validSongChoice = true;
-                    break;
-                case("3"):
-                    chosenClip = clips[2];
-                    validSongChoice = true;
-                    break;
-                default:
-                    System.out.println("Please choose a valid song!");
-            }
-        }
-        manipulateSong(songNumber,chosenClip);
-
-    }
 }
