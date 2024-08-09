@@ -17,7 +17,7 @@ public class MyFrame extends JFrame implements ActionListener {
     MyFrame(int numberOfButtons, String [] buttonTitles) {
         this.numberOfButtons = numberOfButtons;
 
-        buttonTitles = new String[numberOfButtons];
+        this.buttonTitles = new String[numberOfButtons];
         buttons = new JButton[numberOfButtons];
 
         for (int i = 0; i < numberOfButtons;i++){ //Loop that configures the buttons and sets their paramenters
