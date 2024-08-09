@@ -8,39 +8,22 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class MyFrame extends JFrame implements ActionListener {
-
-    JButton instantCrushButton;
-    JButton murderOnMyMindButton;
-    JButton flashingLightsButton;
+    JButton [] songButtons = new JButton[3];
 
     MyFrame() {
-        instantCrushButton = new JButton();
-        instantCrushButton.setBounds(125, 150, 200, 50);
-        instantCrushButton.setText("Instant Crush - Daft Punk");
-        instantCrushButton.setFocusable(false);
-        instantCrushButton.setFont(new Font("Comic Sans", Font.BOLD, 10));
-        instantCrushButton.setForeground(Color.white);
-        instantCrushButton.setBackground(Color.black);
-        instantCrushButton.addActionListener(this);
+        String [] songTitles = new String[]{"Instant Crush - Daft Punk", "Murder on my mind - YMW Melly", "Flashing lights - Kanye West"};
 
 
-        murderOnMyMindButton = new JButton();
-        murderOnMyMindButton.setBounds(125, 225, 200, 50);
-        murderOnMyMindButton.setText("Murder on my mind - YMW Melly");
-        murderOnMyMindButton.setFocusable(false);
-        murderOnMyMindButton.setFont(new Font("Comic Sans", Font.BOLD, 10));
-        murderOnMyMindButton.setForeground(Color.white);
-        murderOnMyMindButton.setBackground(Color.black);
-        murderOnMyMindButton.addActionListener(this);
-
-        flashingLightsButton = new JButton();
-        flashingLightsButton.setBounds(125, 300, 200, 50);
-        flashingLightsButton.setText("Flashing lights - Kanye West");
-        flashingLightsButton.setFocusable(false);
-        flashingLightsButton.setFont(new Font("Comic Sans", Font.BOLD, 10));
-        flashingLightsButton.setForeground(Color.white);
-        flashingLightsButton.setBackground(Color.black);
-        flashingLightsButton.addActionListener(this);
+        for (int i = 0; i < 3;i++){
+            songButtons[i] = new JButton();
+            songButtons[i].setBounds(125, 150 + (i*75),200,50);
+            songButtons[i].setText(songTitles[i]);
+            songButtons[i].setFocusable(false);
+            songButtons[i].setFont(new Font("Comic Sans", Font.BOLD, 10));
+            songButtons[i].setForeground(Color.white);
+            songButtons[i].setBackground(Color.black);
+            songButtons[i].addActionListener(this);
+        }
 
         this.setTitle("Music player GUI");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,20 +32,19 @@ public class MyFrame extends JFrame implements ActionListener {
         this.setSize(500, 500);
         this.setLayout(null);
         this.setVisible(true);
-        this.add(instantCrushButton);
-        this.add(murderOnMyMindButton);
-        this.add(flashingLightsButton);
+        for (int i = 0; i < 3; i++){
+            this.add(songButtons[i]);
+        }
         this.add(new MyLabel("Choose your song!"));
         ImageIcon headphoneImage = new ImageIcon("C:\\Users\\T L S\\JavaProjects\\MusicPlayer\\Resources\\headphones.png");
         this.setIconImage(headphoneImage.getImage());
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         boolean validSongChoice = false;
         String songNumber;
-        if (e.getSource() == instantCrushButton) {
+        if (e.getSource() == songButtons[0]) {
             songNumber = "1";
             try {
                 Main.chooseSong(validSongChoice, songNumber);
@@ -73,7 +55,7 @@ public class MyFrame extends JFrame implements ActionListener {
             } catch (UnsupportedAudioFileException ex) {
                 throw new RuntimeException(ex);
             }
-        } else if (e.getSource() == murderOnMyMindButton) {
+        } else if (e.getSource() == songButtons[1]) {
             songNumber = "2";
             try {
                 Main.chooseSong(validSongChoice, songNumber);
@@ -84,7 +66,7 @@ public class MyFrame extends JFrame implements ActionListener {
             } catch (UnsupportedAudioFileException ex) {
                 throw new RuntimeException(ex);
             }
-        } else if (e.getSource() == flashingLightsButton) {
+        } else if (e.getSource() == songButtons[2]) {
             songNumber = "3";
             try {
                 Main.chooseSong(validSongChoice, songNumber);

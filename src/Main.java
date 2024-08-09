@@ -7,7 +7,7 @@ public class Main {
     public static File[] songs = new File[3];
     public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         boolean validSongChoice = false;
-        MyFrame myFrame = new MyFrame();
+        MyFrame songSelector = new MyFrame();
 
 //        chooseSong(validSongChoice);
 
