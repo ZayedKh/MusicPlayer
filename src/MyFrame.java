@@ -9,7 +9,6 @@ import java.io.IOException;
 
 public class MyFrame extends JFrame implements ActionListener {
     private JButton [] buttons; //Array of buttons
-    public boolean showMusicControls; //Boolean to control which frame is visible
     private int numberOfButtons; //Int that decides the number of buttons to display
     private String [] buttonTitles; //Array of strings that hold the text displayed on the buttons
 
@@ -54,48 +53,45 @@ public class MyFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        boolean validSongChoice = false;
-        showMusicControls = false;
         String songNumber;
-        if (e.getSource() == buttons[0]) {
-            songNumber = "1";
-            try {
-                Main.chooseSong(validSongChoice, songNumber);
-                showMusicControls = true;
-                this.setVisible(false);
-            } catch (LineUnavailableException ex) {
-                throw new RuntimeException(ex);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (UnsupportedAudioFileException ex) {
-                throw new RuntimeException(ex);
+        if (!Main.validSongChoice) {
+            if (e.getSource() == buttons[0]) {
+                songNumber = "1";
+                try {
+                    Main.chooseSong(Main.validSongChoice, songNumber);
+                    Main.validSongChoice = true;
+                    Main.closeFrame(this);
+                }
+                catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-        } else if (e.getSource() == buttons[1]) {
-            songNumber = "2";
-            try {
-                Main.chooseSong(validSongChoice, songNumber);
-                showMusicControls = true;
-                this.setVisible(false);
-            } catch (LineUnavailableException ex) {
-                throw new RuntimeException(ex);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (UnsupportedAudioFileException ex) {
-                throw new RuntimeException(ex);
+            else if (e.getSource() == buttons[1]) {
+                songNumber = "2";
+                try {
+                    Main.chooseSong(Main.validSongChoice, songNumber);
+                    Main.validSongChoice = true;
+                    Main.closeFrame(this);
+                }
+                catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-        } else if (e.getSource() == buttons[2]) {
-            songNumber = "3";
-            try {
-                Main.chooseSong(validSongChoice, songNumber);
-                showMusicControls = true;
-                this.setVisible(false);
-            } catch (LineUnavailableException ex) {
-                throw new RuntimeException(ex);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (UnsupportedAudioFileException ex) {
-                throw new RuntimeException(ex);
+            else if (e.getSource() == buttons[2]) {
+                songNumber = "3";
+                try {
+                    Main.chooseSong(Main.validSongChoice, songNumber);
+                    Main.validSongChoice = true;
+                    Main.closeFrame(this);
+                }
+                catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
+        }
+        else if (Main.validSongChoice) {
+
+
         }
     }
 }
